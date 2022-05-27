@@ -48,7 +48,13 @@ namespace Ispit.Books.Controllers
         {
             try
             {
-                book.UserId = _userManager.GetUserId(User);
+               book.UserId = _userManager.GetUserId(User);
+
+                if (ViewBag.Authors == null || ViewBag.Publishers == null)
+                {
+                    return RedirectToAction("Create", new { error_message = "Molimo popunite polja s autorima i izdavačima!" });
+                }
+
                 _context.Books.Add(book);
                 _context.SaveChanges();
 
@@ -80,6 +86,12 @@ namespace Ispit.Books.Controllers
             try
             {
                 book.UserId = _userManager.GetUserId(User);
+                
+
+                if (ViewBag.Authors == null || ViewBag.Publishers == null)
+                {
+                    return RedirectToAction("Edit", new { error_message = "Molimo popunite polja s autorima i izdavačima!" } );
+                }
                 _context.Books.Update(book);
                 _context.SaveChanges();
 
